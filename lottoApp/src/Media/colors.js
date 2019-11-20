@@ -1,0 +1,6 @@
+let principal = rgb(161, 165, 198)
+let background = rgb(34, 40, 49)
+let positiveButton = rgb(163, 247, 191)
+let backgroundPositiveButton = rgb(41, 161, 156)
+let backgroundNegativeButon = rgb(237, 102, 99)
+let negativeButton = rgb(255, 163, 114)

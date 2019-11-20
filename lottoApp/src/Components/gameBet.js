@@ -11,7 +11,7 @@ export default class gameBet extends Component {
     render() {
         return (
             <View>
-                {this.props.beting ? 
+                {this.state.beting ? 
                     <View>
                         <Text>{this.props.name}</Text>
                         <Text>{`Multiplicador: ${this.props.multiplier}`}</Text>
@@ -32,8 +32,9 @@ export default class gameBet extends Component {
                                 Apostar
                             </Text>
                         </TouchableHighlight>
+                        
                         <TouchableHighlight
-                        onPress = { () => this.setState({beting : false})}>>
+                        onPress = { () => this.setState({beting : false})}>
                             <Text>
                                 Cancelar
                             </Text>
@@ -58,6 +59,11 @@ export default class gameBet extends Component {
                 }
             </View>
         )
+    }
+    changeBeting = async () => {
+        this.setState({beting: !this.state.beting})
+        console.log('beting:')
+        console.log(this.state.beting)
     }
     bet = async () => {
         if(this.state.amountBet > 0 

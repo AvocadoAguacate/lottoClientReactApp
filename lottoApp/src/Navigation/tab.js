@@ -50,24 +50,24 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
   let IconComponent = Ionicons;
   let iconName;
-  if (routeName === 'Menu') {
-    iconName = `ios-restaurant`;
-  } else if (routeName === 'Estado') {
-    iconName = `ios-information-circle`;
-  }else if(routeName ==='Orden'){
-    iconName=`ios-cart`
+  if (routeName === 'Jugar') {
+    iconName = `logo-game-controller-b`;
+  } else if (routeName === 'Usurio') {
+    iconName = `md-person`;
+  }else if(routeName ==='Historial'){
+    iconName=`ios-paper`
   }
   return <IconComponent 
           name={iconName}
-          size={25} 
+          size={24} 
           color={tintColor}
           containerStyle={{margin:10}}/>;
 };
 
 const TabNavigator = createBottomTabNavigator({
-  Menu: StoresScreen,
-  Estado: UserScreen,
-  Orden: HistoryScreen
+  Jugar: StoresScreen,
+  Usuario: UserScreen,
+  Historial: HistoryScreen
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({

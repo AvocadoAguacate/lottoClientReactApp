@@ -16,8 +16,8 @@ import { connect } from 'react-redux'
   constructor(props) {
     super(props);
     this.state = {
-       usuario: '',
-       contraseña:'',
+       id: '',
+       password:'',
     };
     global.url='https://us-central1-lottoprojectsoa4id.cloudfunctions.net/'
   }
@@ -33,14 +33,14 @@ import { connect } from 'react-redux'
           style={styles.TextInput}
           placeholder="Cedula"
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={uruario => this.setState({ usuario:uruario })}
+          onChangeText={id => this.setState({ id:id })}
         />
         <TextInput
           style={styles.TextInput}
           placeholder="Contraseña"
           secureTextEntry
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={contraseña => this.setState({ contraseña:contraseña })}
+          onChangeText={password => this.setState({ password:password })}
         />
         <TouchableHighlight style={styles.boton} onPress={this.goToMenu}>
           <Text style={styles.textoBoton}>
@@ -59,26 +59,21 @@ import { connect } from 'react-redux'
     }
     
   goToMenu = async () => {
-    this.props.addId(this.state.usuario);
-    this.props.navigation.navigate('Tab');
-    /*
     try {
-      fetch(global.url+'Users/Login'
+      fetch(global.url+'loginUser'
       ,{
         method: "POST",
         body: JSON.stringify({
-          Email: this.state.usuario,
-          Password:this.state.contraseña}),
+          id: this.state.id,
+          password:this.state.password}),
         headers:{
             'Content-Type': 'application/json'
           }
         }).then((response) => response.json())
         .then((responseData) =>
         {
-          console.log('Respuesta inicio:')
-          console.log(responseData)
-          if(responseData.Succes){
-            this.props.addId(this.state.usuario);
+          if(responseData.login){
+            this.props.addId(this.state.id);
             this.props.navigation.navigate('Tab');
           }else{
             ToastAndroid.show('Contraseña o correo incorrecto, intente de nuevo'
@@ -91,7 +86,6 @@ import { connect } from 'react-redux'
     } catch (error) {
       ToastAndroid.show('Revisa tu conexión a internet')
     }
-    */
   };
   goToRegister = async () => {
     this.props.navigation.navigate('Register');

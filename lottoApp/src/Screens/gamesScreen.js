@@ -8,11 +8,22 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
+import BetList from '../Components/betList'
+
 class storesScreen extends Component {
+    state = {
+        nameStore:'',
+        games:[]
+    }
+    componentWillMount(){
+        this.getInfoStore()
+        this.getGamesStore()
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text> Games </Text>
+                <Text> {this.state.nameStore} </Text>
+                <BetList games = {this.state.games}/>
                 <TouchableHighlight style={styles.boton} onPress={this.goToTab}>
                     <Text>
                         Volver
@@ -24,12 +35,43 @@ class storesScreen extends Component {
     goToTab = async () => {
         this.props.navigation.navigate('Tab');
     }
+    getInfoStore = async () => { 
+        await fetch(global.url+`store?id=${this.props.datosRedux.storeId}`
+            ,{
+                method: "GET",
+                headers:{
+                'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({nameStore : responseData.name})
+            })
+            .catch((error) => {
+                return console.error(error);
+            });
+    }
+    getGamesStore = async () => {
+        await fetch(global.url+`games?id=${this.props.datosRedux.storeId}`
+            ,{
+                method: "GET",
+                headers:{
+                'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({games : responseData.data})
+            })
+            .catch((error) => {
+                return console.error(error);
+            });
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
         datosRedux: state
-        //this.props.datosRedux.userInfo
     }
 }
 export default connect(mapStateToProps)(storesScreen);

@@ -13,11 +13,12 @@ import { Text,
   
  class RegisterScreen extends Component {
     state={
-        contraseña:'',
-        nombre:'',
-        direccion:'',
-        celular:'',
-        correo:'',
+        password:'',
+        name:'',
+        lastName1:'',
+        lastName2:'',
+        id:'',
+        idVal:true
     }
     render() {
         return (
@@ -27,36 +28,36 @@ import { Text,
         <View style={styles.cuadro}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Correo"
+          placeholder="Cedula"
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={correo => this.setState({ correo:correo })}
+          onChangeText={ id => this.setState({ id : id }) }
         />
         <TextInput
           style={styles.TextInput}
           placeholder="Contraseña"
           secureTextEntry
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={contraseña => this.setState({ contraseña:contraseña })}
+          onChangeText={password => this.setState({ password : password })}
         />
         <TextInput
           style={styles.TextInput}
           placeholder="Nombre"
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={nombre => this.setState({ nombre:nombre })}
+          onChangeText={name => this.setState({ name : name })}
         />
         <TextInput
           style={styles.TextInput}
           placeholder="Apellido 1"
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={apellido1 => this.setState({ apellido1:apellido1 })}
+          onChangeText={lastName1 => this.setState({ lastName1 : lastName1 })}
         />
         <TextInput
           style={styles.TextInput}
           placeholder="Apellido 2"
           placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={apellido2 => this.setState({ apellido2:apellido2 })}
+          onChangeText={lastName2 => this.setState({ lastName2:lastName2 })}
         />
-        <TouchableHighlight style={styles.boton} onPress={this.goToMenu}>
+        <TouchableHighlight style={styles.boton} onPress={this.goToTab}>
           <Text style={styles.textoBoton}>
             Registrarse
           </Text>
@@ -66,50 +67,70 @@ import { Text,
       </ImageBackground>
         )
     }
-    
-    goToMenu= async () => {
-      if(this.state.correo!='' && 
-         this.state.contraseña!=''){
-          fetch(global.url+'Users/AddNewUser'
-          ,{
-            method: "POST",
-            body: JSON.stringify({
-              Name:this.state.nombre,
-              LastName1:this.state.apellido1,
-              LastName2:this.state.apellido2,
-              Email:this.state.correo,
-              Password:this.state.contraseña
-            }),
-            headers:{
-              'Content-Type': 'application/json'
-            }
-            })
-            .then((response) => response.json())
-            .then((responseData) =>
-            {
-              console.log('Respuesta registro:')
-              console.log(responseData);
-              if(responseData.Succes){
-                if(responseData.Result==1){
-                  this.props.addId(this.state.correo)
-                  this.props.navigation.navigate('Tab');
-                }else{
-                  ToastAndroid.show('Correo previamente registrado'
-                , ToastAndroid.SHORT);
-                }
-              }else{
-                ToastAndroid.show('Error en el servidor, intentar más tarde'
-                , ToastAndroid.SHORT);
-              }
-            })
-            .catch((error) => {
-            console.error(error);
-            });
+    idValidation = async () => {
+      console.log(1)
+      await fetch(global.url+'idValidation'
+      ,{
+        method: "POST",
+        body: JSON.stringify({ id : this.state.id }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('Respuesta de idValidation')
+        console.log(responseData)
+        return  this.setState({idVal : responseData.registered})
+      })
+      .catch((error) => {
+        return console.error(error);
+      });
+    }
+    register = async () => {
+      fetch(global.url+'user'
+      ,{
+        method: "POST",
+        body: JSON.stringify({
+          name:this.state.name,
+          lastName1:this.state.lastName1,
+          lastName2:this.state.lastName2,
+          id:this.state.id,
+          password:this.state.password
+        }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseData) =>{
+        console.log('Respuesta registro:')
+        console.log(responseData);
+        if(responseData.registered){
+          this.props.addId(this.state.id)
+          this.props.navigation.navigate('Tab');
         }else{
-          ToastAndroid.show('Debes ingresar al menos un nombre de'+ 
-          ' usuario y una contraseña para registrarte', ToastAndroid.SHORT);
+          ToastAndroid.show('Error al registrar, intente más tarde'
+          ,ToastAndroid.SHORT);
+        }})
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+    goToTab= async () => {
+      if(this.state.id!='' && 
+      this.state.password!=''){
+        await this.idValidation()
+        if(this.state.idVal){
+          console.log(2)
+          ToastAndroid.show(`${this.state.id} ya esta registrado`, ToastAndroid.SHORT)
+        } else {
+        this.register()
+        }
+      }else{
+            ToastAndroid.show('Debes ingresar al menos tu cedula'+ 
+            ' y una contraseña para registrarte', ToastAndroid.SHORT);
       }
-      console.log(global.url+'Users/AddNewUser')
     }
 }
 const mapDispatchToProps = (dispatch) => {

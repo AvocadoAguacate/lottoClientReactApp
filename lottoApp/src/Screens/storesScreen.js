@@ -7,32 +7,47 @@ import {
     TouchableHighlight
 } from 'react-native'
 import { connect } from 'react-redux'
+import StoreList from '../Components/storeList'
 
 class storesScreen extends Component {
+    state = {
+        stores : []
+    }
+    componentDidMount(){
+        this.getStores()
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text> Stores Screen </Text>
-                <TouchableHighlight style={styles.boton} onPress={this.goToGames}>
-                    <Text>
-                        Ir a juegos
-                    </Text>
-                </TouchableHighlight>
+                <Text> Seleciona un punto venta </Text>
+                <StoreList stores = {this.state.stores}/>
             </View>
         )
     }
-    goToGames = async () => {
-        ToastAndroid.show(this.props.datosRedux.userInfo,ToastAndroid.SHORT);
-        this.props.navigation.navigate('Games');
+    getStores = async () => {
+        await fetch(global.url+`stores?id=${this.props.datosRedux.userInfo}`
+            ,{
+                method: "GET",
+                headers:{
+                'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({stores : responseData.data})
+            })
+            .catch((error) => {
+                return console.error(error);
+            });
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         datosRedux: state
-        //this.props.datosRedux.userInfo
     }
 }
+
 export default connect(mapStateToProps)(storesScreen);
 
 const styles = StyleSheet.create({

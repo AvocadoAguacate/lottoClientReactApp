@@ -14,6 +14,7 @@ import LoginScreen from '../Screens/loginScreen'
 import SingInScreen from '../Screens/singInScreen'
 import GamesScreen from '../Screens/gamesScreen'
 import IntroScreen from '../Screens/introScreen'
+import store from '../Components/store'
 
 class AuthLoadingScreen extends React.Component {
   constructor() {
@@ -46,7 +47,8 @@ export default createAppContainer(createSwitchNavigator(
     Auth: LoginScreen,
     Register: SingInScreen,
     Games: GamesScreen,
-    Intro: IntroScreen
+    Intro: IntroScreen,
+    store: store
   },
   {
     initialRouteName: 'AuthLoading',

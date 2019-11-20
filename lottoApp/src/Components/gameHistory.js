@@ -10,7 +10,6 @@ export default class gameHistory extends Component {
                 <Text>{`Tu número: ${this.props.number}`}</Text>
                 <Text>{`Fecha: ${this.props.datetime}`}</Text>
                 <Text>{`Multiplicador: ${this.props.multiplier}`}</Text>
-
             </View>
         )
     }

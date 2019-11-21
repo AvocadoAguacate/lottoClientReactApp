@@ -1,29 +1,24 @@
-import React, { Component } from 'react'
-import { StyleSheet, View,ScrollView } from 'react-native'
+import React, { Component } from "react";
+import { StyleSheet, ScrollView } from "react-native";
 
-import Store from './store'
+import Store from "./store";
 
 export default class storeList extends Component {
-    renderStores = (stores) => {
-        return stores.map((item,index) => {
-            return (
-                <Store
-                    key = {index}
-                    idStore = {item.idStore}
-                />
-            )
-        })
-    }
-    render() {
-        return (
-            <ScrollView style={styles.list}>
-                {this.renderStores(this.props.stores)}
-            </ScrollView>
-        )
-    }
+  renderStores = stores => {
+    return stores.map((item, index) => {
+      return <Store key={index} idStore={item.idStore} />;
+    });
+  };
+  render() {
+    return (
+      <ScrollView style={styles.list}>
+        {this.renderStores(this.props.stores)}
+      </ScrollView>
+    );
+  }
 }
 const styles = StyleSheet.create({
-    list:{
-        width:'100%'
-    },
-})
+  list: {
+    width: "100%"
+  }
+});

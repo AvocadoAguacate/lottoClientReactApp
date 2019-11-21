@@ -65,8 +65,8 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 };
 
 const TabNavigator = createBottomTabNavigator({
-  Jugar: StoresScreen,
   Usuario: UserScreen,
+  Jugar: StoresScreen,
   Historial: HistoryScreen
 },
 {

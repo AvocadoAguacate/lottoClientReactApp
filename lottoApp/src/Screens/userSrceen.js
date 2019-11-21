@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ImageBackground } from 'react-native'
+import { Text, StyleSheet, View, ImageBackground , TouchableHighlight} from 'react-native'
 import { connect } from 'react-redux'
 import background from '../Media/2.jpg'
 class userSrceen extends Component {
@@ -26,6 +26,11 @@ class userSrceen extends Component {
                     <Text style = {styles.text}>{`Nombre: ${this.state.name} ${this.state.lastName1} ${this.state.lastName2}`}</Text>
                     <Text style = {styles.text}>{`Billetera: ${this.state.wallet}`}</Text>
                     <Text style = {styles.text}>{`Cédula: ${this.props.datosRedux.userInfo}`}</Text>
+                    <TouchableHighlight
+                        onPress ={() => this.props.navigation.navigate('Auth')}
+                        style={styles.button} >
+                        <Text style = {styles.textButton}>Salir</Text>
+                    </TouchableHighlight>
                 </View>
             </ImageBackground>
         )
@@ -84,5 +89,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height:'100%'
+    },
+    button:{
+        backgroundColor:'rgb(41, 161, 156)',
+        borderRadius:8,
+        padding:10,
+        marginVertical:10,
+        width:'100%',
+        alignItems:'center'
+    },
+    textButton:{
+        textAlign:'center',
+        color:'rgb(163, 247, 191)',
+        fontSize:20,
     },
 })

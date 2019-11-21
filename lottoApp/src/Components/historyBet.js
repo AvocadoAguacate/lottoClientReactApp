@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableHighlight } from 'react-native'
-import { connect } from 'react-redux'
-import { withNavigation } from 'react-navigation'
+import { Text, StyleSheet, View } from 'react-native'
+import WinnerDetective from './winnerDetective'
 
 export default class historyBet extends Component {
     state = {
@@ -15,23 +14,30 @@ export default class historyBet extends Component {
         month: '',
         year: '',
     }
-    componentDidMount(){
+    componentWillMount(){
         this.getInfoGame()
     }
     render() {
         return (
-            <View>
-                <TouchableHighlight>
+            <View style={styles.container}>
+                <Text style = {styles.text}>{this.state.gameName}</Text>
+                <Text style = {styles.text}>{`Tu número: ${this.props.number}`}</Text>
+                <Text style = {styles.text}>{`Tu apuesta: ${this.props.amount}`}</Text>
+                {this.state.winnerNumber>-1 ?
+                     <WinnerDetective
+                        winnerNumber = {this.state.winnerNumber}
+                        number = {this.props.number}
+                        multiplier = {this.state.multiplier}
+                        amount= {this.props.amount}
+                     />
+                : 
                     <View>
-                        <Text>{this.state.gameName}</Text>
-                        <Text>{`Tu número: ${this.props.number}`}</Text>
-                        <Text>{`Tu apuesta: ${this.props.amount}`}</Text>
-                        <Text>{`Número ganador: ${this.state.winnerNumber}`}</Text>
-                        <Text>{`Multiplicador: ${this.state.multiplier}`}</Text>
-                        <Text>{`Fecha: ${this.state.day}/${this.state.month}/${this.state.year}`}</Text>
-                        <Text>{`Hora: ${this.state.hour}:${this.state.minutes}`}</Text>
+                        <Text style = {styles.text}>Sin número ganador aún</Text>
+                        <Text style = {styles.text}>{`Multiplicador: ${this.state.multiplier}`}</Text>
                     </View>
-                </TouchableHighlight>
+                }
+                <Text style = {styles.text}>{`Fecha: ${this.state.day}/${this.state.month}/${this.state.year}`}</Text>
+                <Text style = {styles.text}>{`Hora: ${this.state.hour}:${this.state.minutes}`}</Text>
             </View>
         )
     }
@@ -70,4 +76,21 @@ export default class historyBet extends Component {
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    text:{
+        textAlign:'center',
+        color:'rgb(161, 165, 198)',
+        fontSize:16,
+        padding:1
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'rgb(34, 40, 49)',
+        width:'100%',
+        padding:'5%',
+        paddingVertical:'2%',
+        borderRadius:8,
+        marginVertical:'2%'
+    }
+})

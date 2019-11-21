@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
 import HistoryBet from './historyBet'
 
@@ -19,11 +19,15 @@ export default class historyBetList extends Component {
     }
     render() {
         return (
-            <View>
+            <ScrollView style={styles.list}>
                 {this.renderHistorys(this.props.historys)}
-            </View>
+            </ScrollView>
         )
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    list:{
+        width:'100%'
+    },
+})

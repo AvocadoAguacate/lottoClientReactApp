@@ -88,11 +88,13 @@ class gameBet extends Component {
         if(this.state.amount > 0 
             && this.state.amount<= this.props.maxAmountBet
             && this.state.number>0){
+            let now = new Date().getTime()
             let sendBet ={
                 idGame : this.props.idGame,
                 idUser : this.props.datosRedux.userInfo,
                 amount : this.state.amount,
-                number : this.state.number
+                number : this.state.number,
+                time : now
             }
             await fetch(global.url+'play'
             ,{

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableHighlight } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
@@ -19,16 +19,12 @@ export default class historyBet extends Component {
     }
     render() {
         return (
-            <View>
-                <TouchableHighlight>
-                    <View>
-                        <Text>{`Recarga en ${this.state.storeName}`}</Text>
-                        <Text>{`Dirección: ${this.state.address}`}</Text>
-                        <Text>{`Monto: ${this.props.amount}`}</Text>
-                        <Text>{`Fecha: ${this.state.day}/${this.state.month}/${this.state.year}`}</Text>
-                        <Text>{`Hora: ${this.state.hour}:${this.state.minutes}`}</Text>
-                    </View>
-                </TouchableHighlight>
+            <View style={styles.container}>
+                <Text style = {styles.text}>{`Recarga en ${this.state.storeName}`}</Text>
+                <Text style = {styles.text}>{`Dirección: ${this.state.address}`}</Text>
+                <Text style = {styles.text}>{`Monto: ${this.props.amount}`}</Text>
+                <Text style = {styles.text}>{`Fecha: ${this.state.day}/${this.state.month}/${this.state.year}`}</Text>
+                <Text style = {styles.text}>{`Hora: ${this.state.hour}:${this.state.minutes}`}</Text>
             </View>
         )
     }
@@ -64,4 +60,21 @@ export default class historyBet extends Component {
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    text:{
+        textAlign:'center',
+        color:'rgb(161, 165, 198)',
+        fontSize:16,
+        padding:1
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'rgb(34, 40, 49)',
+        width:'100%',
+        padding:'5%',
+        paddingVertical:'2%',
+        borderRadius:8,
+        marginVertical:'2%'
+    }
+})

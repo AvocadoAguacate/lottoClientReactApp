@@ -52,8 +52,8 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   let iconName;
   if (routeName === 'Jugar') {
     iconName = `logo-game-controller-b`;
-  } else if (routeName === 'Usurio') {
-    iconName = `md-person`;
+  } else if (routeName === 'Usuario') {
+    iconName = `ios-contact`;
   }else if(routeName ==='Historial'){
     iconName=`ios-paper`
   }
@@ -75,14 +75,14 @@ const TabNavigator = createBottomTabNavigator({
       getTabBarIcon(navigation, focused, tintColor),
   }),
   tabBarOptions: {
-    activeTintColor: 'rgb(241, 196, 15)',
-    inactiveTintColor: 'rgb(243, 156, 18)',
-    activeBackgroundColor :'rgb(230, 126, 34)',
-    inactiveBackgroundColor:'rgba(230, 126, 34,0.5)',
+    activeTintColor: 'rgb(236, 240, 241)',
+    activeBackgroundColor :'rgb(43, 214, 207)',
+    inactiveTintColor: 'rgb(163, 247, 191)',
+    inactiveBackgroundColor:'rgb(34, 40, 49)',
     animationEnabled:true,
     swipeEnabled :true,
     labelStyle: {
-      fontSize: 20,
+      fontSize: 19,
       },
     tabStyle:{
       paddingTop:10

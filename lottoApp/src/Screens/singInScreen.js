@@ -5,12 +5,13 @@ import { Text,
   TouchableHighlight,
   ImageBackground,
   TextInput,
-  KeyboardAvoidingView,
   ToastAndroid,
   } from 'react-native'
 
   import { connect } from 'react-redux'
-  
+ 
+  import background from '../Media/2.jpg'
+
  class RegisterScreen extends Component {
     state={
         password:'',
@@ -22,48 +23,54 @@ import { Text,
     }
     render() {
         return (
-        <ImageBackground source={{uri:'https://images.unsplash.com/photo-1551218372-a8789b81b253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'}}
-      style={styles.container}>
-        <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
-        <View style={styles.cuadro}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Cedula"
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={ id => this.setState({ id : id }) }
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Contraseña"
-          secureTextEntry
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={password => this.setState({ password : password })}
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Nombre"
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={name => this.setState({ name : name })}
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Apellido 1"
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={lastName1 => this.setState({ lastName1 : lastName1 })}
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Apellido 2"
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={lastName2 => this.setState({ lastName2:lastName2 })}
-        />
-        <TouchableHighlight style={styles.boton} onPress={this.goToTab}>
-          <Text style={styles.textoBoton}>
-            Registrarse
-          </Text>
-        </TouchableHighlight>
-        </View>
-        </KeyboardAvoidingView>
+        <ImageBackground source={background}
+        style={styles.background}
+        blurRadius={3}>
+          <View style={styles.container}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Cedula"
+              keyboardType='numeric'
+              placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+              onChangeText={ id => this.setState({ id : id }) }
+            />
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Contraseña"
+              secureTextEntry
+              placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+              onChangeText={password => this.setState({ password : password })}
+            />
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Nombre"
+              placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+              onChangeText={name => this.setState({ name : name })}
+            />
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Apellido 1"
+              placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+              onChangeText={lastName1 => this.setState({ lastName1 : lastName1 })}
+            />
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Apellido 2"
+              placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+              onChangeText={lastName2 => this.setState({ lastName2:lastName2 })}
+            />
+            <TouchableHighlight style={styles.button} onPress={this.goToTab}>
+              <Text style={styles.textButton}>
+                Registrarse
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.button} 
+            onPress={() => this.props.navigation.navigate('Auth')}>
+              <Text style={styles.textButton}>
+                Cancelar
+              </Text>
+            </TouchableHighlight>
+          </View>
       </ImageBackground>
         )
     }
@@ -122,7 +129,6 @@ import { Text,
       this.state.password!=''){
         await this.idValidation()
         if(this.state.idVal){
-          console.log(2)
           ToastAndroid.show(`${this.state.id} ya esta registrado`, ToastAndroid.SHORT)
         } else {
         this.register()
@@ -142,45 +148,48 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(null,mapDispatchToProps)(RegisterScreen);
 
 const styles = StyleSheet.create({
-    container: {
-    flex: 1,
-    alignItems: 'center',
+  container: {
     justifyContent: 'center',
-    },
-    boton:{
+    alignItems: 'center',
+    backgroundColor:'rgba(34, 40, 49, 0.8)',
+    width:'100%',
+    height:'100%',
+    padding:'5%',
+    borderRadius:6,
+  },
+  button:{
+      backgroundColor:'rgb(41, 161, 156)',
       borderRadius:8,
-      backgroundColor:'rgb(241, 196, 15)',
       padding:10,
-      margin:5,
-      width:'90%',
-    },
-    textoBoton:{
-      color:'rgb(230, 126, 34)',
-      fontSize:20,
-      textAlign:"center"
-    },
-    TextInput:{
-      borderRadius:8,
-      backgroundColor:'rgba(243, 156, 18,0.8)',
-      fontSize:20,
-      color:'rgb(236, 240, 241)',
-      padding:10,
-      margin:5,
-      width:'90%',
-      textAlign:"center",
-    },
-    KeyboardAvoidingView:{
+      marginVertical:10,
       width:'100%',
+  },
+  textButton:{
+      textAlign:'center',
+      color:'rgb(163, 247, 191)',
+      fontSize:20,
+  },
+  background: {
+      flex: 1,
       alignItems: 'center',
-    },
-    cuadro:{
-        backgroundColor:'rgba(46,46,46,0.5)',
-        width:'100%',
-        height:'100%',
-        margin:'5%',
-        paddingTop:'10%',
-        paddingBottom:'10%',
-        alignItems: 'center',
-        justifyContent: 'center',  
-    }
+      justifyContent: 'center',
+      height:'100%'
+  },
+  intro:{
+      textAlign:'center',
+      color:'rgb(161, 165, 198)',
+      fontSize:20,
+      padding:10
+  },
+  TextInput: {
+    backgroundColor: 'rgba(43, 214, 207,0.85)',
+    borderRadius:8,
+    padding:10,
+    marginVertical:10,
+    color:'rgb(163, 247, 191)',
+    textAlign:'center',
+    fontSize:20,
+    width:'100%',
+    
+  }
   });

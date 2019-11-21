@@ -3,12 +3,13 @@ import {
     Text,
     StyleSheet,
     View,
-    ToastAndroid,
+    ImageBackground,
     TouchableHighlight
 } from 'react-native'
 import { connect } from 'react-redux'
 
 import BetList from '../Components/betList'
+import background from '../Media/2.jpg'
 
 class storesScreen extends Component {
     state = {
@@ -21,15 +22,25 @@ class storesScreen extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                <Text> {this.state.nameStore} </Text>
-                <BetList games = {this.state.games}/>
-                <TouchableHighlight style={styles.boton} onPress={this.goToTab}>
-                    <Text>
-                        Volver
+            <ImageBackground 
+            source={background}
+            blurRadius={3}
+            style = {styles.background}>
+                <View style={styles.container}>
+                    <Text style = {styles.text}>
+                        {this.state.nameStore} 
                     </Text>
-                </TouchableHighlight>
-            </View>
+                    <BetList
+                    style={styles.list} 
+                    games = {this.state.games}/>
+                    <TouchableHighlight style={styles.button} 
+                    onPress={this.goToTab}>
+                        <Text style = {styles.textButton}>
+                            Volver
+                        </Text>
+                    </TouchableHighlight>
+                </View>
+            </ImageBackground>
         )
     }
     goToTab = async () => {
@@ -78,15 +89,43 @@ export default connect(mapStateToProps)(storesScreen);
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'rgba(34, 40, 49, 0.8)',
+        width:'100%',
+        height:'100%',
+        padding:'5%',
+        borderRadius:6,
+      },
+    background: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        height:'100%'
     },
-    boton:{
+    text:{
+        textAlign:'center',
+        color:'rgb(161, 165, 198)',
+        fontSize:20,
+        padding:10
+    },
+    list:{
+        width:'100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height:'100%'
+    },
+    button:{
+        backgroundColor:'rgb(41, 161, 156)',
         borderRadius:8,
-        backgroundColor:'rgb(241, 196, 15)',
         padding:10,
-        margin:5,
-        width:'90%',
+        bottom:5,
+        marginVertical:10,
+        width:'100%',
     },
+    textButton:{
+        textAlign:'center',
+        color:'rgb(163, 247, 191)',
+        fontSize:20,
+    }
 })

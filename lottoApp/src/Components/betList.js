@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ScrollView} from 'react-native'
 
 import GameBet from './gameBet'
 
@@ -20,11 +20,15 @@ export default class betList extends Component {
     }
     render() {
         return (
-            <View>
+            <ScrollView style={styles.list} >
                 {this.renderGames(this.props.games)}
-            </View>
+            </ScrollView>
         )
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    list:{
+        width:'100%'
+    },
+})

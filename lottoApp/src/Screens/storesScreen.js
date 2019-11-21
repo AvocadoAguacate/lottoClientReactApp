@@ -3,25 +3,32 @@ import {
     Text,
     StyleSheet,
     View,
-    ToastAndroid,
-    TouchableHighlight
+    ImageBackground,
 } from 'react-native'
 import { connect } from 'react-redux'
 import StoreList from '../Components/storeList'
+import background from '../Media/2.jpg'
 
 class storesScreen extends Component {
     state = {
         stores : []
     }
-    componentDidMount(){
+    componentWillMount(){
         this.getStores()
     }
     render() {
         return (
-            <View style={styles.container}>
-                <Text> Seleciona un punto venta </Text>
-                <StoreList stores = {this.state.stores}/>
-            </View>
+            <ImageBackground 
+            source={background}
+            blurRadius={3}
+            style = {styles.background}>
+                <View style={styles.container}>
+                    <Text style = {styles.text}> Seleciona un punto venta </Text>
+                    <StoreList 
+                    style={styles.list}
+                    stores = {this.state.stores}/>
+                </View>
+            </ImageBackground>
         )
     }
     getStores = async () => {
@@ -52,15 +59,30 @@ export default connect(mapStateToProps)(storesScreen);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
-    },
-    boton:{
-        borderRadius:8,
-        backgroundColor:'rgb(241, 196, 15)',
-        padding:10,
-        margin:5,
-        width:'90%',
-    },
+        alignItems: 'center',
+        backgroundColor:'rgba(34, 40, 49, 0.8)',
+        width:'100%',
+        height:'100%',
+        padding:'5%',
+        borderRadius:6,
+      },
+      background: {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          height:'100%'
+      },
+      text:{
+          textAlign:'center',
+          color:'rgb(161, 165, 198)',
+          fontSize:20,
+          padding:10
+      },
+      list:{
+          width:'100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+      }
+      
 })

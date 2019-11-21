@@ -8,16 +8,18 @@ class store extends Component {
         name : '',
         address : '',
     }
-    componentDidMount(){
+    componentWillMount(){
         this.getInfoStore()
     }
     render() {
         return (
             <View>
-                <TouchableHighlight onPress = {this.selectStore}>
+                <TouchableHighlight 
+                style = {styles.button}
+                onPress = {this.selectStore}>
                     <View>
-                        <Text>{this.state.name}</Text>
-                        <Text>{`Direccion: ${this.state.address}`}</Text>
+                        <Text style = {styles.textButton}>{this.state.name}</Text>
+                        <Text style = {styles.textButton}>{`Direccion: ${this.state.address}`}</Text>
                     </View>
                 </TouchableHighlight>
             </View>
@@ -62,4 +64,17 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps,mapDispatchToProps)(withNavigation(store));
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+      button:{
+          backgroundColor:'rgb(41, 161, 156)',
+          borderRadius:8,
+          padding:10,
+          marginVertical:10,
+          width:'100%',
+      },
+      textButton:{
+          textAlign:'center',
+          color:'rgb(163, 247, 191)',
+          fontSize:20,
+      }
+})

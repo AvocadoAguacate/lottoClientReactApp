@@ -5,12 +5,11 @@ import { Text,
   TouchableHighlight,
   ImageBackground,
   TextInput,
-  KeyboardAvoidingView,
   ToastAndroid
   } from 'react-native'
 
 import { connect } from 'react-redux'
-
+import background from '../Media/2.jpg'
 
  class LoginScreen extends Component {
   constructor(props) {
@@ -25,36 +24,36 @@ import { connect } from 'react-redux'
   render() {
     return (
       <ImageBackground 
-      source={{uri:'https://images.unsplash.com/photo-1551218372-a8789b81b253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'}}
-      style={styles.container}>
-        <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
-        <View style={styles.cuadro}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Cedula"
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={id => this.setState({ id:id })}
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Contraseña"
-          secureTextEntry
-          placeholderTextColor={"rgba(236, 240, 241,0.85)"}
-          onChangeText={password => this.setState({ password:password })}
-        />
-        <TouchableHighlight style={styles.boton} onPress={this.goToMenu}>
-          <Text style={styles.textoBoton}>
-            Iniciar Sesion
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.boton} onPress={this.goToRegister}>
-          <Text style={styles.textoBoton}>
-            Registrarse
-          </Text>
-        </TouchableHighlight>
-        </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
+        source={background}
+        blurRadius={3}
+        style = {styles.background}>
+        <View style={styles.container}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Cedula"
+            keyboardType='numeric'
+            placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+            onChangeText={id => this.setState({ id:id })}
+          />
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Contraseña"
+            secureTextEntry
+            placeholderTextColor={"rgba(236, 240, 241,0.85)"}
+            onChangeText={password => this.setState({ password:password })}
+          />
+          <TouchableHighlight style={styles.button} onPress={this.goToMenu}>
+            <Text style = {styles.textButton}>
+              Iniciar Sesion
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this.goToRegister}>
+            <Text style = {styles.textButton}>
+              Registrarse
+            </Text>
+          </TouchableHighlight>
+          </View>
+        </ImageBackground>
       );
     }
     
@@ -102,44 +101,47 @@ export default connect(null,mapDispatchToProps)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  },
-  boton:{
-    borderRadius:8,
-    backgroundColor:'rgb(241, 196, 15)',
-    padding:10,
-    margin:5,
-    width:'90%',
-  },
-  textoBoton:{
-    color:'rgb(230, 126, 34)',
-    fontSize:20,
-    textAlign:"center"
-  },
-  TextInput:{
-    borderRadius:8,
-    backgroundColor:'rgba(243, 156, 18,0.8)',
-    fontSize:20,
-    color:'rgb(236, 240, 241)',
-    padding:10,
-    margin:5,
-    width:'90%',
-    textAlign:"center",
-  },
-  KeyboardAvoidingView:{
-    width:'100%',
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  cuadro:{
-    backgroundColor:'rgba(46,46,46,0.5)',
+    backgroundColor:'rgba(34, 40, 49, 0.8)',
     width:'100%',
     height:'100%',
-    margin:'5%',
-    paddingTop:'10%',
-    paddingBottom:'10%',
-    alignItems: 'center',
-    justifyContent: 'center',  
-}
+    padding:'5%',
+    borderRadius:6,
+  },
+  button:{
+      backgroundColor:'rgb(41, 161, 156)',
+      borderRadius:8,
+      padding:10,
+      marginVertical:10,
+      width:'100%',
+  },
+  textButton:{
+      textAlign:'center',
+      color:'rgb(163, 247, 191)',
+      fontSize:20,
+  },
+  background: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      height:'100%'
+  },
+  intro:{
+      textAlign:'center',
+      color:'rgb(161, 165, 198)',
+      fontSize:20,
+      padding:10
+  },
+  TextInput: {
+    backgroundColor: 'rgba(43, 214, 207,0.85)',
+    borderRadius:8,
+    padding:10,
+    marginVertical:10,
+    color:'rgb(163, 247, 191)',
+    textAlign:'center',
+    fontSize:20,
+    width:'100%',
+    
+  }
 });

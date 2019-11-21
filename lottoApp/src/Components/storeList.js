@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,TouchableHighlight } from 'react-native'
+import { StyleSheet, View,ScrollView } from 'react-native'
 
 import Store from './store'
 
@@ -16,10 +16,14 @@ export default class storeList extends Component {
     }
     render() {
         return (
-            <View>
+            <ScrollView style={styles.list}>
                 {this.renderStores(this.props.stores)}
-            </View>
+            </ScrollView>
         )
     }
 }
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    list:{
+        width:'100%'
+    },
+})

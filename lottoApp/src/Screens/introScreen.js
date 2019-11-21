@@ -7,8 +7,14 @@ import {
     TouchableHighlight,
     ImageBackground
 } from 'react-native'
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+
 import background from '../Media/1.jpg'
 export default class storesScreen extends Component {
+    componentDidMount() {
+        this.registerForPushNotifications();
+    }
     render() {
         return (
             <ImageBackground 
@@ -28,6 +34,19 @@ export default class storesScreen extends Component {
             </ImageBackground>
         )
     }
+    registerForPushNotifications = async () => {
+        
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+          let finalStatus = existingStatus;
+
+          if (existingStatus !== 'granted') {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {return;}
+          let token = await Notifications.getExpoPushTokenAsync();
+        console.log(token);
+    }
     goToLogin = async () => {
         this.props.navigation.navigate('Auth');
     }
@@ -36,9 +55,10 @@ export default class storesScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor:'rgba(34, 40, 49, 0.8)',
         width:'90%',
-        height:'40%',
+        height:'35%',
         padding:'5%',
         borderRadius:6,
 
@@ -47,7 +67,8 @@ const styles = StyleSheet.create({
         borderRadius:8,
         backgroundColor:'rgb(41, 161, 156)',
         padding:10,
-        marginVertical:10,
+        marginVertical:15,
+        width:'100%',
     },
     textButton:{
         textAlign:'center',

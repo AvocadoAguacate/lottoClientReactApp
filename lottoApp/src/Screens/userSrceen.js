@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
-
+import background from '../Media/2.jpg'
 class userSrceen extends Component {
     state={
         name : '',
@@ -17,12 +17,17 @@ class userSrceen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text> Perfil de usuario </Text>
-                <Text>{`Nombre: ${this.state.name} ${this.state.lastName1} ${this.state.lastName2}`}</Text>
-                <Text>{`Billetera: ${this.state.wallet}`}</Text>
-                <Text>{`Cédula: ${this.props.datosRedux.userInfo}`}</Text>
-            </View>
+            <ImageBackground 
+            source={background}
+            blurRadius={3}
+            style = {styles.background}>
+                <View style={styles.container}>
+                    <Text style = {styles.text}> Perfil de usuario </Text>
+                    <Text style = {styles.text}>{`Nombre: ${this.state.name} ${this.state.lastName1} ${this.state.lastName2}`}</Text>
+                    <Text style = {styles.text}>{`Billetera: ${this.state.wallet}`}</Text>
+                    <Text style = {styles.text}>{`Cédula: ${this.props.datosRedux.userInfo}`}</Text>
+                </View>
+            </ImageBackground>
         )
     }
     getInfoUser = async () => {
@@ -60,8 +65,24 @@ export default connect(mapStateToProps)(userSrceen);
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'rgba(34, 40, 49, 0.8)',
+        width:'100%',
+        height:'100%',
+        padding:'5%',
+        borderRadius:6,
+      },
+      text:{
+        textAlign:'center',
+        color:'rgb(161, 165, 198)',
+        fontSize:20,
+        padding:10
+    },
+    background: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        height:'100%'
     },
 })
